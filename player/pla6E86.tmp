@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://dua256yvwdvl"]
+
+[ext_resource type="Script" path="res://Player/player.gd" id="1_d0u6m"]
+[ext_resource type="Script" path="res://Player/state_machine.gd" id="1_o4u8r"]
+[ext_resource type="Script" path="res://Player/idle.gd" id="2_v5ohf"]
+[ext_resource type="Texture2D" uid="uid://dw1c4pw8vayah" path="res://icon.svg" id="4_1o1fv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldoap"]
+atlas = ExtResource("4_1o1fv")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_26p6k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldoap")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_d0u6m")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("intial_state")]
+script = ExtResource("1_o4u8r")
+intial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("actor")]
+script = ExtResource("2_v5ohf")
+actor = NodePath("../..")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_26p6k")
