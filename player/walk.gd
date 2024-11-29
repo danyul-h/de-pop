@@ -1,6 +1,6 @@
 extends PlayerState
 
-@export var speed := 100
+@export var speed : float
 
 func update(delta: float):
 	update_animation_direction("walk")

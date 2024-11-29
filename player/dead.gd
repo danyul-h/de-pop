@@ -1,6 +1,6 @@
 extends PlayerState
 
 func enter():
-	player.sprite.play("dead")
-	await player.sprite.animation_finished
+	player.animation.play("dead")
+	await player.animation.animation_finished
 	player.queue_free()

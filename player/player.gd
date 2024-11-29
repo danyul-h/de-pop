@@ -1,11 +1,11 @@
 extends CharacterBody2D
 class_name Player
 
-@onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var jump_cooldown : Timer = $JumpCooldown
 @onready var camera : Camera2D = $Camera2D
 @onready var label : Label = $Label
 @onready var state_machine : PlayerStateMachine = $StateMachine
+@onready var animation : AnimationPlayer = $AnimationPlayer
 var movement : Vector2
 var knockback : Vector2
 var animation_direction := "front"

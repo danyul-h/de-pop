@@ -1,6 +1,7 @@
 extends PlayerState
 
-@export var speed := 160
+@export var speed : float
+var cooldown : Timer
 
 var direction_to_vector = {
 	"front" : Vector2(0, 1),
@@ -10,12 +11,12 @@ var direction_to_vector = {
 }
 
 func enter():
-	player.sprite.play(player.animation_direction+"_jump")
+	player.animation.play(player.animation_direction+"_jump")
 	if not player.movement: player.movement = direction_to_vector[player.animation_direction] * speed
 	else: player.movement = player.movement.normalized() * speed
 	
 func update(delta: float):
-	if not player.sprite.is_playing() or not player.movement: transition.emit(self, "idle")
+	if not player.animation.is_playing(): transition.emit(self, "idle")
 
 func exit():
 	player.jump_cooldown.start()

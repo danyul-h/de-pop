@@ -19,4 +19,4 @@ func physics_update(_delta:float):
 	pass
 
 func update_animation_direction(animation : String):
-	player.sprite.play(player.animation_direction+"_"+animation)
+	player.animation.play(player.animation_direction+"_"+animation)
