@@ -20,6 +20,7 @@ func _ready():
 	knockback = Vector2(0, 0)
 
 func _process(delta):
+	label.text = state_machine.current_state.name + " " + String.num($HealthComponent.health)
 	var mouse_direction = get_global_mouse_position() - position
 	animation_direction = ("left" if mouse_direction.x < 0 else "right") if abs(mouse_direction.x) >= abs(mouse_direction.y) else ("front" if mouse_direction.y > 0 else "back")
 

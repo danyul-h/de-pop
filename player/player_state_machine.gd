@@ -16,7 +16,6 @@ func _ready():
 		current_state = intial_state
 
 func _process(delta):
-	get_parent().label.text = current_state.name
 	if current_state: current_state.update(delta)
 
 func _physics_process(delta):

@@ -6,15 +6,21 @@ class_name HealthComponent
 @export var sprites : Array[Sprite2D]
 var health : float
 var knockbackTween : Tween
+var died := false
+
+signal dead
+signal hurt
 
 func _ready():
 	health = MAX_HEALTH
 
 func damage(attack : Attack):
+	if died: return
+	
+	hurt.emit()
 	health -= attack.damage
 	
 	actor.movement = Vector2()
-	actor.state_machine.transition("hurt")
 	
 	if actor is Player and attack.damage >= health:
 		actor.freeze_frame(attack.knockback_time)
@@ -33,8 +39,8 @@ func damage(attack : Attack):
 		knockbackTween.parallel().tween_property(sprite, "modulate", Color(1,1,1,1), attack.knockback_time)
 	
 	await knockbackTween.finished
-	actor.state_machine.transition("idle")
 	
 	if health <= 0: 
-		actor.state_machine.transition("dead")
+		dead.emit()
+		died = true
 	

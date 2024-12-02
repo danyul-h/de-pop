@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://d1gi6a5x0hkfk"]
+
+[ext_resource type="Script" path="res://snake/snake.gd" id="1_31t7a"]
+[ext_resource type="Texture2D" uid="uid://dw1c4pw8vayah" path="res://icon.svg" id="1_tjx45"]
+[ext_resource type="Script" path="res://components/health_component.gd" id="2_psw2u"]
+[ext_resource type="Script" path="res://components/hurtbox_component.gd" id="3_dfe3r"]
+[ext_resource type="PackedScene" uid="uid://4fljr32rv657" path="res://components/hitbox_component.tscn" id="3_faexd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7grtu"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gkcke"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wi1np"]
+size = Vector2(64, 64)
+
+[node name="Snake" type="CharacterBody2D"]
+script = ExtResource("1_31t7a")
+segment_distance = 100.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_tjx45")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_7grtu")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("3_faexd")]
+damage = 10.0
+knockback_time = null
+knockback_strength = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_gkcke")
+debug_color = Color(0.776516, 0.13889, 1, 0.42)
+
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+visible = false
+script = ExtResource("3_dfe3r")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_wi1np")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="HealthComponent" type="Node2D" parent="." node_paths=PackedStringArray("actor", "sprites")]
+script = ExtResource("2_psw2u")
+actor = NodePath("..")
+sprites = [NodePath("../Sprite2D")]
+
+[node name="Segments" type="Node2D" parent="."]
