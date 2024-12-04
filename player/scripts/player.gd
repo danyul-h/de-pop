@@ -4,7 +4,7 @@ class_name Player
 @onready var jump_cooldown : Timer = $JumpCooldown
 @onready var camera : Camera2D = $Camera2D
 @onready var label : Label = $Label
-@onready var state_machine : PlayerStateMachine = $StateMachine
+@onready var state_machine : PlayerStateMachine = $PlayerStateMachine
 @onready var animation : AnimationPlayer = $AnimationPlayer
 var movement : Vector2
 var knockback : Vector2
@@ -19,11 +19,11 @@ func _ready():
 	movement = Vector2(0, 0)
 	knockback = Vector2(0, 0)
 
-func _process(delta):
+func _process(_delta):
 	label.text = state_machine.current_state.name + " " + String.num($HealthComponent.health)
 	var mouse_direction = get_global_mouse_position() - position
 	animation_direction = ("left" if mouse_direction.x < 0 else "right") if abs(mouse_direction.x) >= abs(mouse_direction.y) else ("front" if mouse_direction.y > 0 else "back")
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	velocity = movement + knockback
 	move_and_slide()

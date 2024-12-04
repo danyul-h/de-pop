@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1gi6a5x0hkfk"]
+
+[ext_resource type="Script" path="res://enemies/scripts/snake.gd" id="1_31t7a"]
+[ext_resource type="PackedScene" uid="uid://q70bbpu4bsgb" path="res://enemies/segment.tscn" id="2_jox2w"]
+[ext_resource type="Script" path="res://components/scripts/health_component.gd" id="2_psw2u"]
+[ext_resource type="PackedScene" uid="uid://cg4eh4rglogqp" path="res://components/state_machine.tscn" id="4_swq08"]
+
+[node name="Snake" type="Node2D"]
+script = ExtResource("1_31t7a")
+
+[node name="Head" parent="." instance=ExtResource("2_jox2w")]
+
+[node name="HealthComponent" type="Node2D" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("2_psw2u")
+MAX_HEALTH = 200.0
+invincibility_time = 0.2
+actor = NodePath("../Head")
+
+[node name="StateMachine" parent="." instance=ExtResource("4_swq08")]

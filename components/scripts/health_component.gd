@@ -2,11 +2,14 @@ extends Node2D
 class_name HealthComponent
 
 @export var MAX_HEALTH := 100.0
+@export var invincibility_time := 0.1
 @export var actor : CollisionObject2D
 @export var sprites : Array[Sprite2D]
+
 var health : float
 var knockbackTween : Tween
 var died := false
+var invincible := false
 
 signal dead
 signal hurt
@@ -15,7 +18,8 @@ func _ready():
 	health = MAX_HEALTH
 
 func damage(attack : Attack):
-	if died: return
+	if died or invincible: return
+	set_invincible()
 	
 	hurt.emit()
 	health -= attack.damage
@@ -44,3 +48,7 @@ func damage(attack : Attack):
 		dead.emit()
 		died = true
 	
+func set_invincible():
+	invincible = true
+	await get_tree().create_timer(invincibility_time).timeout
+	invincible = false

@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dtoi7w76of88c" path="res://assets/spring/seasonal sample (spring).png" id="1_g0si6"]
 [ext_resource type="PackedScene" uid="uid://dua256yvwdvl" path="res://player/player.tscn" id="2_w4kxi"]
-[ext_resource type="PackedScene" uid="uid://d1gi6a5x0hkfk" path="res://snake/snake.tscn" id="4_8v8f2"]
+[ext_resource type="PackedScene" uid="uid://d1gi6a5x0hkfk" path="res://enemies/snake.tscn" id="4_8v8f2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j17j5"]
 texture = ExtResource("1_g0si6")

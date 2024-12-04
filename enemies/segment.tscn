@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://q70bbpu4bsgb"]
+
+[ext_resource type="Script" path="res://enemies/scripts/segment.gd" id="1_v8kh4"]
+[ext_resource type="Texture2D" uid="uid://dw1c4pw8vayah" path="res://icon.svg" id="2_cd2dn"]
+[ext_resource type="Script" path="res://components/scripts/hurtbox_component.gd" id="3_fox1j"]
+[ext_resource type="PackedScene" uid="uid://4fljr32rv657" path="res://components/hitbox_component.tscn" id="4_o0c3t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f7lts"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_liick"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mui6c"]
+size = Vector2(64, 64)
+
+[node name="Segment" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_v8kh4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_cd2dn")
+
+[node name="HurtboxComponent" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_fox1j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_f7lts")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="HitboxComponent" parent="." instance=ExtResource("4_o0c3t")]
+damage = 1.0
+knockback_strength = 10.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_liick")
+debug_color = Color(0.881179, 0.000349814, 0.819793, 0.42)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_mui6c")

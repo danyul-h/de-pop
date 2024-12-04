@@ -5,6 +5,9 @@ class_name HitboxComponent
 @export var knockback_time := 0.25
 @export var knockback_strength := 5.0
 
+func _ready():
+	area_entered.connect(_on_area_entered)
+
 func _on_area_entered(area):
 	if area is HurtboxComponent:
 		var hurtbox : HurtboxComponent = area
