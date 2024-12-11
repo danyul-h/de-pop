@@ -1,6 +1,8 @@
 extends Node
 class_name StateMachine
 
+@export var actor : CollisionObject2D
+
 @export var intial_state : State
 var current_state : State
 var states : Dictionary = {}
@@ -9,7 +11,7 @@ func _ready():
 	for child in get_children():
 		if child is not State: continue
 		states[child.name.to_lower()] = child
-		child.player = get_parent()
+		child.actor = actor
 		child.transition.connect(on_child_transition)
 	if intial_state:
 		intial_state.enter()
