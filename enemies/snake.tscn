@@ -1,20 +1,37 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1gi6a5x0hkfk"]
+[gd_scene load_steps=11 format=3 uid="uid://d1gi6a5x0hkfk"]
 
 [ext_resource type="Script" path="res://enemies/scripts/snake.gd" id="1_31t7a"]
+[ext_resource type="Texture2D" uid="uid://snj5xk7j8mfg" path="res://assets/piskel/head.png" id="2_cct6u"]
 [ext_resource type="PackedScene" uid="uid://q70bbpu4bsgb" path="res://enemies/segment.tscn" id="2_jox2w"]
 [ext_resource type="Script" path="res://components/scripts/health_component.gd" id="2_psw2u"]
-[ext_resource type="Texture2D" uid="uid://dw1c4pw8vayah" path="res://icon.svg" id="2_vc06k"]
+[ext_resource type="Texture2D" uid="uid://bgl7i6r5jilsf" path="res://assets/piskel/body.png" id="3_43h8p"]
+[ext_resource type="Texture2D" uid="uid://diyb87v3qtvmq" path="res://assets/piskel/tail.png" id="4_kvh6x"]
 [ext_resource type="PackedScene" uid="uid://cg4eh4rglogqp" path="res://components/state_machine.tscn" id="4_swq08"]
 [ext_resource type="Script" path="res://enemies/wandering.gd" id="5_x0dby"]
 
+[sub_resource type="Curve" id="Curve_88oy6"]
+_data = [Vector2(0, 0.7), 0.0, 0.0, 0, 0, Vector2(0.1, 0.6), 0.0, 0.0, 0, 0, Vector2(0.3, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 0.7), -2.14011, -2.14011, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+point_count = 5
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_k20kn"]
+max_value = 3.14
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(2e-05, 0), 0.0, 0.0, 0, 0, Vector2(0.4, 0.314), 0.0, 0.0, 0, 0, Vector2(0.6, 2.826), 0.0, 0.0, 0, 0, Vector2(1, 3.14), 0.0, 0.0, 0, 0]
+point_count = 5
+metadata/_snap_enabled = true
+
 [node name="Snake" type="Node2D"]
-z_index = 1
 y_sort_enabled = true
 script = ExtResource("1_31t7a")
-head_texture = ExtResource("2_vc06k")
-body_texture = ExtResource("2_vc06k")
-tail_texture = ExtResource("2_vc06k")
+num_segments = 50
+segment_distance = 16.0
+scale_curve = SubResource("Curve_88oy6")
+head_texture = ExtResource("2_cct6u")
+body_texture = ExtResource("3_43h8p")
+tail_texture = ExtResource("4_kvh6x")
 lerp_speed = 0.1
+
+[node name="Body" type="Node2D" parent="."]
 
 [node name="Head" parent="." instance=ExtResource("2_jox2w")]
 
@@ -23,7 +40,8 @@ path_desired_distance = 8.0
 target_desired_distance = 4.0
 simplify_path = true
 avoidance_enabled = true
-radius = 16.0
+radius = 8.0
+debug_enabled = true
 
 [node name="HealthComponent" type="Node2D" parent="." node_paths=PackedStringArray("actor")]
 script = ExtResource("2_psw2u")
@@ -39,6 +57,7 @@ intial_state = NodePath("Wandering")
 script = ExtResource("5_x0dby")
 speed = 80.0
 nav_agent = NodePath("../../Head/NavigationAgent2D")
+view_curve = SubResource("Curve_k20kn")
 view_range = 2.094
-dist_min = 32
-dist_range = 16
+dist_min = 50
+dist_range = 20

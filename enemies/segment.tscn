@@ -1,18 +1,18 @@
 [gd_scene load_steps=8 format=3 uid="uid://q70bbpu4bsgb"]
 
 [ext_resource type="Script" path="res://enemies/scripts/segment.gd" id="1_v8kh4"]
-[ext_resource type="Texture2D" uid="uid://dw1c4pw8vayah" path="res://icon.svg" id="2_cd2dn"]
+[ext_resource type="Texture2D" uid="uid://bgl7i6r5jilsf" path="res://assets/piskel/body.png" id="2_f4dns"]
 [ext_resource type="Script" path="res://components/scripts/hurtbox_component.gd" id="3_fox1j"]
 [ext_resource type="PackedScene" uid="uid://4fljr32rv657" path="res://components/hitbox_component.tscn" id="4_o0c3t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f7lts"]
-size = Vector2(64, 64)
+size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_liick"]
-size = Vector2(64, 64)
+size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mui6c"]
-size = Vector2(64, 64)
+size = Vector2(16, 16)
 
 [node name="Segment" type="CharacterBody2D"]
 collision_layer = 2
@@ -21,8 +21,7 @@ wall_min_slide_angle = 0.0
 script = ExtResource("1_v8kh4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_cd2dn")
+texture = ExtResource("2_f4dns")
 
 [node name="HurtboxComponent" type="Area2D" parent="."]
 collision_layer = 2
