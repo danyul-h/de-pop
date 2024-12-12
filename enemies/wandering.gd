@@ -21,5 +21,5 @@ func make_path(pos : Vector2):
 func physics_update(_delta:float):
 	var current_agent_pos = actor.global_position
 	var next_path_pos = nav_agent.get_next_path_position()
-	var direction = current_agent_pos.direction_to(next_path_pos)
+	var direction = current_agent_pos.direction_to(next_path_pos).normalized()
 	nav_agent.velocity = direction * speed

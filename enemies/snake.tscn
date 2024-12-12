@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1gi6a5x0hkfk"]
+[gd_scene load_steps=7 format=3 uid="uid://d1gi6a5x0hkfk"]
 
 [ext_resource type="Script" path="res://enemies/scripts/snake.gd" id="1_31t7a"]
 [ext_resource type="PackedScene" uid="uid://q70bbpu4bsgb" path="res://enemies/segment.tscn" id="2_jox2w"]
 [ext_resource type="Script" path="res://components/scripts/health_component.gd" id="2_psw2u"]
+[ext_resource type="Texture2D" uid="uid://dw1c4pw8vayah" path="res://icon.svg" id="2_vc06k"]
 [ext_resource type="PackedScene" uid="uid://cg4eh4rglogqp" path="res://components/state_machine.tscn" id="4_swq08"]
 [ext_resource type="Script" path="res://enemies/wandering.gd" id="5_x0dby"]
 
@@ -10,6 +11,9 @@
 z_index = 1
 y_sort_enabled = true
 script = ExtResource("1_31t7a")
+head_texture = ExtResource("2_vc06k")
+body_texture = ExtResource("2_vc06k")
+tail_texture = ExtResource("2_vc06k")
 
 [node name="Head" parent="." instance=ExtResource("2_jox2w")]
 
