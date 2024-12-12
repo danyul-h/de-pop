@@ -10,11 +10,17 @@ func get_surrounding_coords(coords: Array[Vector2i]):
 				surrounding_coords.append(Vector2i(coord.x + i, coord.y + j))
 	return surrounding_coords
 		
-
+func get_border_coords(coords: Array[Vector2i]):
+	var border_coords := Array()
+	for coord in coords:
+		for i in range(16):
+			if not get_neighbor_cell(coord, i): print("hey")
+	return border_coords
+	
 func _use_tile_data_runtime_update(coords: Vector2i) -> bool:
-	if coords in get_surrounding_coords(objects.get_used_cells_by_id(0)):
+	if coords in get_surrounding_coords(objects.get_used_cells()):
 		return true
 	return false
 
-func _tile_data_runtime_update(coords: Vector2i, tile_data: TileData) -> void:
+func _tile_data_runtime_update(_coords: Vector2i, tile_data: TileData) -> void:
 	tile_data.set_navigation_polygon(0, null)

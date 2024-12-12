@@ -18,8 +18,11 @@ tail_texture = ExtResource("2_vc06k")
 [node name="Head" parent="." instance=ExtResource("2_jox2w")]
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Head"]
+path_desired_distance = 8.0
+target_desired_distance = 4.0
+simplify_path = true
 avoidance_enabled = true
-debug_enabled = true
+radius = 16.0
 
 [node name="HealthComponent" type="Node2D" parent="." node_paths=PackedStringArray("actor")]
 script = ExtResource("2_psw2u")
@@ -33,5 +36,8 @@ intial_state = NodePath("Wandering")
 
 [node name="Wandering" type="Node" parent="StateMachine" node_paths=PackedStringArray("nav_agent")]
 script = ExtResource("5_x0dby")
-speed = 100.0
+speed = 80.0
 nav_agent = NodePath("../../Head/NavigationAgent2D")
+view_range = 2.094
+dist_min = 32
+dist_range = 16

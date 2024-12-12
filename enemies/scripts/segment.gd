@@ -9,4 +9,3 @@ var knockback := Vector2()
 func _process(_delta):
 	velocity = movement + knockback
 	move_and_slide()
-	pass

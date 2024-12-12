@@ -10,6 +10,7 @@ class_name Snake
 
 @onready var head : Segment = $Head
 @onready var health_component : HealthComponent = $HealthComponent
+@onready var nav_agent : NavigationAgent2D = $Head/NavigationAgent2D
 
 var segments : Array[Segment]
 var segment_scene = preload("res://enemies/segment.tscn")
@@ -29,10 +30,10 @@ func _ready():
 		health_component.sprites.append(segment.sprite)
 
 func _process(_delta):
-	#head.global_position = get_global_mouse_position()
 	for i in num_segments:
 		var segment = segments[i]
 		var ahead : Node2D
 		if i == 0: ahead = head 
 		else: ahead = segments[i-1]
+		#segment.look_at(ahead.position)
 		segment.position = ahead.position - (segment.position.direction_to(ahead.position) * segment_distance)
