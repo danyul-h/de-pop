@@ -14,6 +14,7 @@ script = ExtResource("1_31t7a")
 head_texture = ExtResource("2_vc06k")
 body_texture = ExtResource("2_vc06k")
 tail_texture = ExtResource("2_vc06k")
+lerp_speed = 0.1
 
 [node name="Head" parent="." instance=ExtResource("2_jox2w")]
 
