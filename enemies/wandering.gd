@@ -1,6 +1,7 @@
 extends State
 
 @export var speed : float
+@export var pause_time : float
 @export var nav_agent : NavigationAgent2D
 
 @export var view_curve : Curve
@@ -14,7 +15,7 @@ func _ready():
 	call_deferred("make_path")
 
 func make_path():
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(pause_time).timeout
 	var theta = view_curve.sample_baked(randf()) + nav_agent.velocity.angle() - view_curve.max_value / 2
 	var r = sqrt(randf()) * dist_range + dist_min
 	nav_agent.target_position = actor.global_position + Vector2(r*cos(theta), r*sin(theta))

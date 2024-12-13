@@ -40,13 +40,13 @@ func _on_velocity_computed(safe_velocity):
 	head.move_and_slide()
 
 func _process(_delta):
-	head.global_rotation = lerp_angle(head.global_rotation, nav_agent.velocity.angle(), lerp_speed)
+	head.global_rotation = lerp_angle(head.global_rotation, head.velocity.angle(), lerp_speed)
 	for i in num_segments:
 		var segment = segments[i]
 		var ahead : Node2D
 		if i == 0: ahead = head 
 		else: ahead = segments[i-1]
-		segment.global_rotation = lerp_angle(segment.global_rotation, segment.position.angle_to_point(ahead.position), lerp_speed)
+		segment.global_rotation = lerp_angle(segment.global_rotation, segment.position.angle_to_point(ahead.position), 1)
 		var scaled_distance = segment_distance*scale_curve.sample_baked(i/float(num_segments))
 		segment.position = ahead.position - (segment.position.direction_to(ahead.position) * scaled_distance)
 	#queue_redraw()

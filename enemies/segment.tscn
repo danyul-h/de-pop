@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://q70bbpu4bsgb"]
 
 [ext_resource type="Script" path="res://enemies/scripts/segment.gd" id="1_v8kh4"]
-[ext_resource type="Texture2D" uid="uid://bgl7i6r5jilsf" path="res://assets/piskel/body.png" id="2_f4dns"]
+[ext_resource type="Texture2D" uid="uid://b7jepaf60q4qa" path="res://assets/piskel/body.png" id="2_f4dns"]
 [ext_resource type="Script" path="res://components/scripts/hurtbox_component.gd" id="3_fox1j"]
 [ext_resource type="PackedScene" uid="uid://4fljr32rv657" path="res://components/hitbox_component.tscn" id="4_o0c3t"]
 
