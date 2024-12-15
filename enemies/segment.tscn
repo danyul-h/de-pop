@@ -34,7 +34,6 @@ debug_color = Color(1, 0, 0, 0.419608)
 
 [node name="HitboxComponent" parent="." instance=ExtResource("4_o0c3t")]
 damage = 1.0
-knockback_strength = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("RectangleShape2D_liick")

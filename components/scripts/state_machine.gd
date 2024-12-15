@@ -1,9 +1,8 @@
 extends Node
 class_name StateMachine
 
-@export var actor : CollisionObject2D
-
 @export var intial_state : State
+@export var actor : CollisionObject2D
 var current_state : State
 var states : Dictionary = {}
 
@@ -34,4 +33,3 @@ func transition(new_state_name):
 	if current_state: current_state.exit() #if theres a current state, exit it
 	new_state.enter() #enter new state
 	current_state = new_state #set new state to current state
-	

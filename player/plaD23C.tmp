@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dua256yvwdvl"]
+[gd_scene load_steps=30 format=3 uid="uid://dua256yvwdvl"]
 
 [ext_resource type="Script" path="res://player/scripts/player.gd" id="1_d0u6m"]
 [ext_resource type="Script" path="res://components/scripts/state_machine.gd" id="1_o4u8r"]
@@ -11,7 +11,6 @@
 [ext_resource type="Script" path="res://player/scripts/hurt.gd" id="8_2t8rr"]
 [ext_resource type="Script" path="res://player/scripts/dead.gd" id="9_cfl0d"]
 [ext_resource type="PackedScene" uid="uid://blxmsstukuoew" path="res://components/hurtbox_component.tscn" id="9_lhqvq"]
-[ext_resource type="Script" path="res://components/scripts/hitbox_component.gd" id="12_7j4ac"]
 
 [sub_resource type="Animation" id="Animation_cmgfy"]
 length = 0.001
@@ -285,14 +284,12 @@ _data = {
 "right_walk": SubResource("Animation_s1c8u")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ku4gf"]
+radius = 3.0
+height = 8.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_veyrg"]
 size = Vector2(10, 18)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_vkf4c"]
-radius = 30.1496
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p0w4n"]
-size = Vector2(10, 10)
 
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -302,7 +299,6 @@ script = ExtResource("1_d0u6m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_4mf5x")
-offset = Vector2(0, -12)
 hframes = 8
 vframes = 8
 
@@ -311,10 +307,14 @@ libraries = {
 "": SubResource("AnimationLibrary_5k5jf")
 }
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("intial_state", "actor")]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 6)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ku4gf")
+
+[node name="StateMachine" type="Node" parent="."]
 script = ExtResource("1_o4u8r")
-intial_state = NodePath("Idle")
-actor = NodePath("..")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("2_v5ohf")
@@ -347,10 +347,8 @@ script = ExtResource("7_jaixj")
 wait_time = 0.5
 one_shot = true
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("actor", "sprites", "state_machine") instance=ExtResource("8_1rgep")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("actor") instance=ExtResource("8_1rgep")]
 actor = NodePath("..")
-sprites = [NodePath("../Sprite2D")]
-state_machine = NodePath("../StateMachine")
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("9_lhqvq")]
 collision_layer = 4
@@ -358,7 +356,7 @@ collision_mask = 0
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
-position = Vector2(0, -10)
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_veyrg")
 debug_color = Color(0.993861, 0, 0.231178, 0.42)
 
@@ -367,19 +365,3 @@ offset_left = -20.0
 offset_top = -36.0
 offset_right = 20.0
 offset_bottom = -13.0
-
-[node name="HitboxComponent" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
-script = ExtResource("12_7j4ac")
-damage = 1.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(0, -16)
-shape = SubResource("CircleShape2D_vkf4c")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-z_index = 1
-position = Vector2(7.18037e-06, -5)
-rotation = 1.5708
-shape = SubResource("RectangleShape2D_p0w4n")

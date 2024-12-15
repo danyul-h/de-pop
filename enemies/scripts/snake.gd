@@ -21,18 +21,29 @@ var segments : Array[Segment]
 var segment_scene = preload("res://enemies/segment.tscn")
 
 func _ready():
+	#help nav agent avoid other nav agents
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
+	
+	#init head
 	head.hurtbox.health_component = health_component
 	head.sprite.texture = head_texture
 	health_component.sprites.append(head.sprite)
+	
+	#init segments
 	for i in num_segments:
 		var segment : Segment = segment_scene.instantiate()
 		segments.append(segment)
 		body.add_child(segment)
+		
+		#segment texture
 		if i == num_segments-1: segment.sprite.texture = tail_texture
 		else: segment.sprite.texture = body_texture
+		
+		#segment health
 		segment.hurtbox.health_component = health_component
 		health_component.sprites.append(segment.sprite)
+		
+		#segment distances + positions
 		segment.scale *= scale_curve.sample_baked(i/float(num_segments))
 		var ahead : Node2D
 		if i == 0: ahead = head 
@@ -45,7 +56,10 @@ func _on_velocity_computed(safe_velocity):
 	head.move_and_slide()
 
 func _process(_delta):
-	head.global_rotation = lerp_angle(head.global_rotation, head.velocity.angle(), lerp_speed)
+	#head rotation animation
+	if nav_agent.velocity: head.global_rotation = lerp_angle(head.global_rotation, head.velocity.angle(), lerp_speed)
+	else: head.global_rotation = segments[0].position.angle_to_point(head.position)
+	#segment rotation animation
 	for i in num_segments:
 		var segment = segments[i]
 		var ahead : Node2D
@@ -54,15 +68,3 @@ func _process(_delta):
 		segment.global_rotation = lerp_angle(segment.global_rotation, segment.position.angle_to_point(ahead.position), 1)
 		var scaled_distance = segment_distance*scale_curve.sample_baked(i/float(num_segments))
 		segment.position = ahead.position - (segment.position.direction_to(ahead.position) * scaled_distance)
-	#queue_redraw()
-#
-#@onready var wandering = $StateMachine/Wandering
-#
-#func make_path():
-	#var theta = wandering.view_curve.sample_baked(randf()) + nav_agent.velocity.angle() - wandering.view_curve.max_value / 2
-	#var r = sqrt(randf()) * wandering.dist_range + wandering.dist_min
-	#return head.position + Vector2(r*cos(theta), r*sin(theta))
-#
-#func _draw():
-	#for i in 10:
-		#draw_circle(make_path(), 10, Color.WHITE)

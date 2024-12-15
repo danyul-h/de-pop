@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d1gi6a5x0hkfk"]
+[gd_scene load_steps=14 format=3 uid="uid://d1gi6a5x0hkfk"]
 
 [ext_resource type="Script" path="res://enemies/scripts/snake.gd" id="1_31t7a"]
 [ext_resource type="Texture2D" uid="uid://koluejf2xnbw" path="res://assets/piskel/head.png" id="2_cct6u"]
@@ -8,6 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://cwcli6g0bftmm" path="res://assets/piskel/tail.png" id="4_kvh6x"]
 [ext_resource type="PackedScene" uid="uid://cg4eh4rglogqp" path="res://components/state_machine.tscn" id="4_swq08"]
 [ext_resource type="Script" path="res://enemies/wandering.gd" id="5_x0dby"]
+[ext_resource type="Script" path="res://components/scripts/state_machine.gd" id="8_icvgv"]
+[ext_resource type="Script" path="res://enemies/hurt.gd" id="10_iy0l2"]
+[ext_resource type="Script" path="res://enemies/dead.gd" id="10_myekb"]
 
 [sub_resource type="Curve" id="Curve_88oy6"]
 max_value = 2.0
@@ -25,7 +28,7 @@ metadata/_snap_enabled = true
 y_sort_enabled = true
 script = ExtResource("1_31t7a")
 num_segments = 10
-segment_distance = 10.0
+segment_distance = 32.0
 scale_curve = SubResource("Curve_88oy6")
 head_texture = ExtResource("2_cct6u")
 body_texture = ExtResource("3_43h8p")
@@ -33,9 +36,12 @@ tail_texture = ExtResource("4_kvh6x")
 lerp_speed = 0.1
 
 [node name="Body" type="Node2D" parent="."]
+z_index = 1
+y_sort_enabled = true
 
 [node name="Head" parent="." instance=ExtResource("2_jox2w")]
 z_index = 1
+y_sort_enabled = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Head"]
 path_desired_distance = 8.0
@@ -43,16 +49,24 @@ target_desired_distance = 4.0
 simplify_path = true
 avoidance_enabled = true
 radius = 8.0
+debug_enabled = true
 
-[node name="HealthComponent" type="Node2D" parent="." node_paths=PackedStringArray("actor")]
+[node name="RayCast2D" type="RayCast2D" parent="Head"]
+position = Vector2(8, 0)
+target_position = Vector2(50, 0)
+collision_mask = 4
+
+[node name="HealthComponent" type="Node2D" parent="." node_paths=PackedStringArray("actor", "state_machine")]
 script = ExtResource("2_psw2u")
 MAX_HEALTH = 200.0
 invincibility_time = 0.2
 actor = NodePath("../Head")
+state_machine = NodePath("../StateMachine")
 
-[node name="StateMachine" parent="." node_paths=PackedStringArray("actor", "intial_state") instance=ExtResource("4_swq08")]
-actor = NodePath("../Head")
+[node name="StateMachine" parent="." node_paths=PackedStringArray("intial_state", "actor") instance=ExtResource("4_swq08")]
+script = ExtResource("8_icvgv")
 intial_state = NodePath("Wandering")
+actor = NodePath("../Head")
 
 [node name="Wandering" type="Node" parent="StateMachine" node_paths=PackedStringArray("nav_agent")]
 script = ExtResource("5_x0dby")
@@ -62,3 +76,12 @@ view_curve = SubResource("Curve_k20kn")
 view_range = 2.094
 dist_min = 50
 dist_range = 20
+
+[node name="Hurt" type="Node" parent="StateMachine" node_paths=PackedStringArray("nav_agent")]
+script = ExtResource("10_iy0l2")
+nav_agent = NodePath("../../Head/NavigationAgent2D")
+
+[node name="Dead" type="Node" parent="StateMachine" node_paths=PackedStringArray("kill_actor", "nav_agent")]
+script = ExtResource("10_myekb")
+kill_actor = NodePath("../..")
+nav_agent = NodePath("../../Head/NavigationAgent2D")

@@ -10,11 +10,6 @@ func get_surrounding_coords(coords: Array[Vector2i]):
 				surrounding_coords.append(Vector2i(coord.x + i, coord.y + j))
 	return surrounding_coords
 		
-func get_border_coords(coords: Array[Vector2i]):
-	var border_coords := Array()
-	#for coord in coords:
-	return border_coords
-	
 func _use_tile_data_runtime_update(coords: Vector2i) -> bool:
 	if coords in get_surrounding_coords(objects.get_used_cells()):
 		return true

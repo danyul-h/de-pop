@@ -6,13 +6,12 @@ class_name HealthComponent
 @export var actor : CollisionObject2D
 @export var sprites : Array[Sprite2D]
 
+@export var state_machine : StateMachine
+
 var health : float
 var knockbackTween : Tween
 var died := false
 var invincible := false
-
-signal dead
-signal hurt
 
 func _ready():
 	health = MAX_HEALTH
@@ -21,8 +20,8 @@ func damage(attack : Attack):
 	if died or invincible: return
 	set_invincible()
 	
-	hurt.emit()
 	health -= attack.damage
+	state_machine.transition("hurt")
 	
 	actor.movement = Vector2()
 	
@@ -32,21 +31,18 @@ func damage(attack : Attack):
 	if knockbackTween:
 		knockbackTween.kill()
 	
-	actor.knockback = attack.knockback
+	actor.knockback = (actor.global_position-attack.origin) * attack.force
+	
 	knockbackTween = get_tree().create_tween()
-	
-	
 	knockbackTween.parallel().tween_property(actor, "knockback", Vector2(0, 0), attack.knockback_time)
-	
 	for sprite in sprites:
 		sprite.modulate = Color(30, 15, 15)
 		knockbackTween.parallel().tween_property(sprite, "modulate", Color(1,1,1,1), attack.knockback_time)
-	
 	await knockbackTween.finished
 	
 	if health <= 0: 
-		dead.emit()
 		died = true
+		state_machine.transition("dead")
 	
 func set_invincible():
 	invincible = true

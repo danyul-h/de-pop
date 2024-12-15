@@ -1,10 +1,7 @@
-extends Node
+extends State
 class_name PlayerState
 
-var player : Player
-
 @warning_ignore("unused_signal")
-signal transition
 
 func enter():
 	pass
@@ -19,4 +16,4 @@ func physics_update(_delta:float):
 	pass
 
 func update_animation_direction(animation : String):
-	player.animation.play(player.animation_direction+"_"+animation)
+	actor.animation.play(actor.animation_direction+"_"+animation)

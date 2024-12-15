@@ -541,7 +541,7 @@ texture = ExtResource("1_g0si6")
 3:14/size_in_atlas = Vector2i(2, 2)
 3:14/0 = 0
 3:14/0/texture_origin = Vector2i(0, 8)
-3:14/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:14/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -8, 12, -8, 12, 8, -12, 8)
 1:8/size_in_atlas = Vector2i(1, 2)
 1:8/0 = 0
 1:8/0/texture_origin = Vector2i(0, 8)
@@ -551,7 +551,7 @@ texture = ExtResource("1_g0si6")
 2:8/0 = 0
 2:8/0/texture_origin = Vector2i(0, 8)
 2:8/0/y_sort_origin = -8
-2:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, -8, 12, -8, 12, 8, -12, 8)
 
 [sub_resource type="TileSet" id="TileSet_8qo28"]
 physics_layer_0/collision_layer = 1
@@ -580,31 +580,44 @@ tile_set = SubResource("TileSet_8qo28")
 
 [node name="Player" parent="." instance=ExtResource("2_w4kxi")]
 z_index = 1
+position = Vector2(225, 50)
 
 [node name="Snake" parent="." instance=ExtResource("4_8v8f2")]
-position = Vector2(25, 75)
+position = Vector2(111, 167)
 segment_distance = 12.0
 
 [node name="Snake2" parent="." instance=ExtResource("4_8v8f2")]
-position = Vector2(-97, 92)
+position = Vector2(111, 167)
 segment_distance = 12.0
 
 [node name="Snake3" parent="." instance=ExtResource("4_8v8f2")]
-position = Vector2(-108, 172)
+position = Vector2(111, 167)
 segment_distance = 12.0
 
 [node name="Snake4" parent="." instance=ExtResource("4_8v8f2")]
-position = Vector2(28, 173)
+position = Vector2(111, 167)
 segment_distance = 12.0
 
 [node name="Snake5" parent="." instance=ExtResource("4_8v8f2")]
-position = Vector2(153, 141)
+position = Vector2(111, 167)
 segment_distance = 12.0
 
 [node name="Snake6" parent="." instance=ExtResource("4_8v8f2")]
-position = Vector2(182, 59)
+position = Vector2(111, 167)
 segment_distance = 12.0
 
 [node name="Snake7" parent="." instance=ExtResource("4_8v8f2")]
-position = Vector2(159, 222)
+position = Vector2(111, 167)
+segment_distance = 12.0
+
+[node name="Snake8" parent="." instance=ExtResource("4_8v8f2")]
+position = Vector2(111, 167)
+segment_distance = 12.0
+
+[node name="Snake9" parent="." instance=ExtResource("4_8v8f2")]
+position = Vector2(111, 167)
+segment_distance = 12.0
+
+[node name="Snake10" parent="." instance=ExtResource("4_8v8f2")]
+position = Vector2(111, 167)
 segment_distance = 12.0

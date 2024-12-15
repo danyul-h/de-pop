@@ -1,7 +1,7 @@
 extends PlayerState
 
 func enter():
-	player.movement = Vector2(0, 0)
-	player.animation.play("dead")
-	await player.animation.animation_finished
-	player.queue_free()
+	actor.movement = Vector2(0, 0)
+	actor.animation.play("dead")
+	await actor.animation.animation_finished
+	actor.queue_free()

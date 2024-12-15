@@ -4,7 +4,7 @@ class_name Player
 @onready var jump_cooldown : Timer = $JumpCooldown
 @onready var camera : Camera2D = $Camera2D
 @onready var label : Label = $Label
-@onready var state_machine : PlayerStateMachine = $PlayerStateMachine
+@onready var state_machine : StateMachine = $StateMachine
 @onready var animation : AnimationPlayer = $AnimationPlayer
 var movement : Vector2
 var knockback : Vector2
