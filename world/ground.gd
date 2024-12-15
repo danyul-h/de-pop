@@ -12,9 +12,7 @@ func get_surrounding_coords(coords: Array[Vector2i]):
 		
 func get_border_coords(coords: Array[Vector2i]):
 	var border_coords := Array()
-	for coord in coords:
-		for i in range(16):
-			if not get_neighbor_cell(coord, i): print("hey")
+	#for coord in coords:
 	return border_coords
 	
 func _use_tile_data_runtime_update(coords: Vector2i) -> bool:

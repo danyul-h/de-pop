@@ -584,3 +584,27 @@ z_index = 1
 [node name="Snake" parent="." instance=ExtResource("4_8v8f2")]
 position = Vector2(25, 75)
 segment_distance = 12.0
+
+[node name="Snake2" parent="." instance=ExtResource("4_8v8f2")]
+position = Vector2(-97, 92)
+segment_distance = 12.0
+
+[node name="Snake3" parent="." instance=ExtResource("4_8v8f2")]
+position = Vector2(-108, 172)
+segment_distance = 12.0
+
+[node name="Snake4" parent="." instance=ExtResource("4_8v8f2")]
+position = Vector2(28, 173)
+segment_distance = 12.0
+
+[node name="Snake5" parent="." instance=ExtResource("4_8v8f2")]
+position = Vector2(153, 141)
+segment_distance = 12.0
+
+[node name="Snake6" parent="." instance=ExtResource("4_8v8f2")]
+position = Vector2(182, 59)
+segment_distance = 12.0
+
+[node name="Snake7" parent="." instance=ExtResource("4_8v8f2")]
+position = Vector2(159, 222)
+segment_distance = 12.0

@@ -34,6 +34,11 @@ func _ready():
 		segment.hurtbox.health_component = health_component
 		health_component.sprites.append(segment.sprite)
 		segment.scale *= scale_curve.sample_baked(i/float(num_segments))
+		var ahead : Node2D
+		if i == 0: ahead = head 
+		else: ahead = segments[i-1]
+		var scaled_distance = segment_distance*scale_curve.sample_baked(i/float(num_segments))
+		segment.position = ahead.position + Vector2(1,1) * scaled_distance
 		
 func _on_velocity_computed(safe_velocity):
 	head.velocity = head.velocity.move_toward(safe_velocity, $StateMachine/Wandering.speed)
