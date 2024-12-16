@@ -6,9 +6,12 @@ extends State
 
 @export var detection_area : Area2D
 @export var ray_cast : RayCast2D
+@export var chase_timer : Timer
 var player : Player
 
 func enter():
+	chase_timer.timeout.connect(on_chase_timeout)
+	
 	for body in detection_area.get_overlapping_bodies():
 		if body is Player: 
 			player = body
@@ -16,7 +19,15 @@ func enter():
 	transition.emit(self, "wander")
 	
 func update(_delta:float):
-	pass
+	if ray_cast.is_colliding():
+		var collider = ray_cast.get_collider()
+		if collider == player:
+			chase_timer.stop()
+			return
+	if chase_timer.is_stopped(): chase_timer.start()
+
+func on_chase_timeout(): 
+	transition.emit(self, "wander")
 
 func physics_update(_delta:float):
 	nav_agent.target_position = player.global_position

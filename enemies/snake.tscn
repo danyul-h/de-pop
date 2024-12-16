@@ -84,12 +84,13 @@ dist_min = 64
 dist_range = 1
 detection_area = NodePath("../../Head/DetectionArea")
 
-[node name="Follow" type="Node" parent="StateMachine" node_paths=PackedStringArray("nav_agent", "detection_area", "ray_cast")]
+[node name="Follow" type="Node" parent="StateMachine" node_paths=PackedStringArray("nav_agent", "detection_area", "ray_cast", "chase_timer")]
 script = ExtResource("10_k0xmm")
 speed = 150.0
 nav_agent = NodePath("../../Head/NavigationAgent2D")
 detection_area = NodePath("../../Head/DetectionArea")
 ray_cast = NodePath("../../Head/RayCast2D")
+chase_timer = NodePath("../../ChaseTimer")
 
 [node name="Hurt" type="Node" parent="StateMachine" node_paths=PackedStringArray("nav_agent")]
 script = ExtResource("10_iy0l2")
@@ -100,3 +101,7 @@ pause_time = 0.2
 script = ExtResource("10_myekb")
 nav_agent = NodePath("../../Head/NavigationAgent2D")
 actor = NodePath("../..")
+
+[node name="ChaseTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true

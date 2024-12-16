@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dua256yvwdvl"]
+[gd_scene load_steps=30 format=3 uid="uid://dua256yvwdvl"]
 
 [ext_resource type="Script" path="res://player/scripts/player.gd" id="1_d0u6m"]
 [ext_resource type="Script" path="res://components/scripts/state_machine.gd" id="1_o4u8r"]
@@ -11,7 +11,6 @@
 [ext_resource type="Script" path="res://player/scripts/hurt.gd" id="8_2t8rr"]
 [ext_resource type="Script" path="res://player/scripts/dead.gd" id="9_cfl0d"]
 [ext_resource type="PackedScene" uid="uid://blxmsstukuoew" path="res://components/hurtbox_component.tscn" id="9_lhqvq"]
-[ext_resource type="Script" path="res://components/scripts/hitbox_component.gd" id="12_7j4ac"]
 
 [sub_resource type="Animation" id="Animation_cmgfy"]
 length = 0.001
@@ -288,9 +287,6 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_veyrg"]
 size = Vector2(10, 18)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vkf4c"]
-radius = 30.1496
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0w4n"]
 size = Vector2(10, 10)
 
@@ -367,16 +363,6 @@ offset_left = -20.0
 offset_top = -36.0
 offset_right = 20.0
 offset_bottom = -13.0
-
-[node name="HitboxComponent" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
-script = ExtResource("12_7j4ac")
-damage = 1.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(0, -16)
-shape = SubResource("CircleShape2D_vkf4c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
