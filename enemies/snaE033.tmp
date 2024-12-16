@@ -36,7 +36,6 @@ tail_texture = ExtResource("4_kvh6x")
 lerp_speed = 0.1
 
 [node name="Body" type="Node2D" parent="."]
-z_index = 1
 y_sort_enabled = true
 
 [node name="Head" parent="." instance=ExtResource("2_jox2w")]
@@ -48,7 +47,7 @@ path_desired_distance = 8.0
 target_desired_distance = 4.0
 simplify_path = true
 avoidance_enabled = true
-radius = 16.0
+radius = 8.0
 debug_enabled = true
 
 [node name="RayCast2D" type="RayCast2D" parent="Head"]
@@ -86,7 +85,6 @@ detection_area = NodePath("../../Head/DetectionArea")
 
 [node name="Follow" type="Node" parent="StateMachine" node_paths=PackedStringArray("nav_agent", "detection_area", "ray_cast")]
 script = ExtResource("10_k0xmm")
-speed = 150.0
 nav_agent = NodePath("../../Head/NavigationAgent2D")
 detection_area = NodePath("../../Head/DetectionArea")
 ray_cast = NodePath("../../Head/RayCast2D")

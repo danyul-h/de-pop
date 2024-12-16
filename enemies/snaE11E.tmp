@@ -48,17 +48,15 @@ path_desired_distance = 8.0
 target_desired_distance = 4.0
 simplify_path = true
 avoidance_enabled = true
-radius = 16.0
+radius = 8.0
 debug_enabled = true
 
 [node name="RayCast2D" type="RayCast2D" parent="Head"]
 position = Vector2(8, 0)
-target_position = Vector2(128, 0)
+target_position = Vector2(64, 0)
 collision_mask = 4
 
 [node name="DetectionArea" type="Area2D" parent="Head"]
-collision_layer = 0
-collision_mask = 4
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Head/DetectionArea"]
 polygon = PackedVector2Array(8, 0, 128, 128, 128, -128)
@@ -84,17 +82,14 @@ dist_min = 64
 dist_range = 1
 detection_area = NodePath("../../Head/DetectionArea")
 
-[node name="Follow" type="Node" parent="StateMachine" node_paths=PackedStringArray("nav_agent", "detection_area", "ray_cast")]
-script = ExtResource("10_k0xmm")
-speed = 150.0
-nav_agent = NodePath("../../Head/NavigationAgent2D")
-detection_area = NodePath("../../Head/DetectionArea")
-ray_cast = NodePath("../../Head/RayCast2D")
-
 [node name="Hurt" type="Node" parent="StateMachine" node_paths=PackedStringArray("nav_agent")]
 script = ExtResource("10_iy0l2")
 nav_agent = NodePath("../../Head/NavigationAgent2D")
 pause_time = 0.2
+
+[node name="Follow" type="Node" parent="StateMachine" node_paths=PackedStringArray("nav_agent")]
+script = ExtResource("10_k0xmm")
+nav_agent = NodePath("../../Head/NavigationAgent2D")
 
 [node name="Dead" type="Node" parent="StateMachine" node_paths=PackedStringArray("nav_agent", "actor")]
 script = ExtResource("10_myekb")

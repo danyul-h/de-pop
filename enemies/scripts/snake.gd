@@ -13,6 +13,7 @@ class_name Snake
 @onready var head : Segment = $Head
 @onready var health_component : HealthComponent = $HealthComponent
 @onready var nav_agent : NavigationAgent2D = $Head/NavigationAgent2D
+@onready var state_machine : StateMachine = $StateMachine
 @onready var body : Node2D = $Body
 
 @export var lerp_speed : float
@@ -52,13 +53,12 @@ func _ready():
 		segment.position = ahead.position + Vector2(1,1) * scaled_distance
 		
 func _on_velocity_computed(safe_velocity):
-	head.velocity = head.velocity.move_toward(safe_velocity, $StateMachine/Wandering.speed)
+	head.velocity = head.velocity.move_toward(safe_velocity*state_machine.current_state.speed, state_machine.current_state.speed)
 	head.move_and_slide()
 
 func _process(_delta):
 	#head rotation animation
-	if nav_agent.velocity: head.global_rotation = lerp_angle(head.global_rotation, head.velocity.angle(), lerp_speed)
-	else: head.global_rotation = segments[0].position.angle_to_point(head.position)
+	head.global_rotation = lerp_angle(head.global_rotation, segments[0].position.angle_to_point(head.position), lerp_speed)
 	#segment rotation animation
 	for i in num_segments:
 		var segment = segments[i]

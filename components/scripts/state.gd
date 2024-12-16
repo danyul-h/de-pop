@@ -1,7 +1,7 @@
 extends Node
 class_name State
 
-var actor : CollisionObject2D
+@export var actor : Node2D
 
 @warning_ignore("unused_signal")
 signal transition
