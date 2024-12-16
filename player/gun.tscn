@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://hpaokp61qlek"]
+
+[ext_resource type="Texture2D" uid="uid://bm5o7y8hbhm01" path="res://assets/items/pistol.png" id="1_5eaiu"]
+[ext_resource type="Script" path="res://player/gun.gd" id="1_bpj7i"]
+
+[node name="Gun" type="Node2D"]
+script = ExtResource("1_bpj7i")
+speed = 1000.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 0.436332
+texture = ExtResource("1_5eaiu")
+
+[node name="Marker2D" type="Marker2D" parent="Sprite2D"]
+position = Vector2(5.0763, -5.67725)
+rotation = -0.436332
+scale = Vector2(1, 1)

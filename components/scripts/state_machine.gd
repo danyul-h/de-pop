@@ -10,7 +10,7 @@ func _ready():
 	for child in get_children():
 		if child is not State: continue
 		states[child.name.to_lower()] = child
-		child.actor = actor
+		if not child.actor: child.actor = actor
 		child.transition.connect(on_child_transition)
 	if intial_state:
 		intial_state.enter()

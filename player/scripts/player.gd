@@ -6,6 +6,7 @@ class_name Player
 @onready var label : Label = $Label
 @onready var state_machine : StateMachine = $StateMachine
 @onready var animation : AnimationPlayer = $AnimationPlayer
+@onready var item = $Gun
 var movement : Vector2
 var knockback : Vector2
 var animation_direction := "front"
@@ -23,7 +24,8 @@ func _process(_delta):
 	label.text = state_machine.current_state.name + " " + String.num($HealthComponent.health)
 	var mouse_direction = get_global_mouse_position() - position
 	animation_direction = ("left" if mouse_direction.x < 0 else "right") if abs(mouse_direction.x) >= abs(mouse_direction.y) else ("front" if mouse_direction.y > 0 else "back")
-
+	item.global_position = (get_global_mouse_position()-global_position).normalized() * 16 + global_position
+	item.look_at(get_global_mouse_position())
 func _physics_process(_delta):
 	velocity = movement + knockback
 	move_and_slide()

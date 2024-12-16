@@ -15,5 +15,6 @@ func _on_area_entered(area):
 		attack.damage = damage
 		attack.knockback_time = knockback_time
 		attack.force = force
+		attack.velocity = get_parent().velocity.normalized() 
 		attack.origin = global_position
 		hurtbox.damage(attack)

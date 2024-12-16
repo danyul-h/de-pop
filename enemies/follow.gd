@@ -16,9 +16,9 @@ func enter():
 		if body is Player: 
 			player = body
 			return
-	transition.emit(self, "wander")
 	
 func update(_delta:float):
+	if not player: transition.emit(self, "wander")
 	if ray_cast.is_colliding():
 		var collider = ray_cast.get_collider()
 		if collider == player:
@@ -30,8 +30,11 @@ func on_chase_timeout():
 	transition.emit(self, "wander")
 
 func physics_update(_delta:float):
-	nav_agent.target_position = player.global_position
+	if is_instance_valid(player): nav_agent.target_position = player.global_position
 	move_nav()
+
+func exit():
+	chase_timer.timeout.disconnect(on_chase_timeout)
 
 func move_nav():
 	var current_agent_pos = actor.global_position

@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://d3oibq3q7b25e"]
+
+[ext_resource type="Script" path="res://components/scripts/hitbox_component.gd" id="1_avo7o"]
+[ext_resource type="Script" path="res://player/bullet.gd" id="1_tsg8b"]
+[ext_resource type="Texture2D" uid="uid://dw1c4pw8vayah" path="res://icon.svg" id="2_cqs5l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wr1ss"]
+size = Vector2(4, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vy70k"]
+size = Vector2(4, 2)
+
+[node name="Bullet" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_tsg8b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(100, 100, 100, 1)
+position = Vector2(0, -1.19209e-07)
+scale = Vector2(0.032, 0.016)
+texture = ExtResource("2_cqs5l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_wr1ss")
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_avo7o")
+knockback_time = 0.05
+force = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+visible = false
+shape = SubResource("RectangleShape2D_vy70k")
+debug_color = Color(0.954185, 2.5028e-06, 0.549728, 0.42)

@@ -23,7 +23,7 @@ func damage(attack : Attack):
 	health -= attack.damage
 	state_machine.transition("hurt")
 	
-	actor.movement = Vector2()
+	#actor.movement 
 	
 	if actor is Player and attack.damage >= health:
 		actor.freeze_frame(attack.knockback_time)
@@ -31,7 +31,8 @@ func damage(attack : Attack):
 	if knockbackTween:
 		knockbackTween.kill()
 	
-	actor.knockback = (actor.global_position-attack.origin) * attack.force
+	if attack.velocity : actor.knockback = attack.velocity * attack.force
+	else: actor.knockback = (actor.global_position - attack.origin) * attack.force
 	
 	knockbackTween = get_tree().create_tween()
 	knockbackTween.parallel().tween_property(actor, "knockback", Vector2(0, 0), attack.knockback_time)
